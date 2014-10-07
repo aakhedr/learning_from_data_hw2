@@ -1,4 +1,4 @@
-import random
+import random, pylab
 
 # Helper function 1
 def flip():
@@ -42,5 +42,29 @@ def pick3(allCoins):
 	nu1 = countH(c1) / float(len(c1))
 	nuRand = countH(cRand) / float(len(cRand))
 	nuMin = countH(cMin) / float(len(cMin))
-	return [(c1, nu1), (cRand, nuRand), (cMin, nuMin)]
+	return [nu1, nuRand, nuMin]
 
+# run experiement for 100,000 times
+nu1s, nuRands, nuMins = [], [], []
+for i in range(100000):
+	coins = flipCoins()
+	freqOfHs = pick3(coins)
+	nu1s.append(freqOfHs[0])
+	nuRands.append(freqOfHs[1])
+	nuMins.append(freqOfHs[2])
+
+print 'Avergae of nu1s = ' + str(sum(nu1s)/ len(nu1s))
+print 'Avergae of nuRands = ' + str(sum(nuRands)/ len(nuRands))
+print 'Avergae of nuMins = ' + str(sum(nuMins)/ len(nuMins))
+
+pylab.plot(nuMins)
+pylab.xlabel('nu 1')
+pylab.show()
+
+pylab.plot(nuMins)
+pylab.xlabel('nu Rand')
+pylab.show()
+
+pylab.plot(nuMins)
+pylab.xlabel('nu Min')
+pylab.show()
