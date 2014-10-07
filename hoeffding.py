@@ -68,3 +68,8 @@ pylab.show()
 pylab.plot(nuMins)
 pylab.xlabel('nu Min')
 pylab.show()
+
+# output
+# Avergae of nu1s = 0.499936
+# Avergae of nuRands = 0.500076
+# Avergae of nuMins = 0.037596
