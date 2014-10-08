@@ -4,8 +4,9 @@ import numpy as np
 def plotDataSet(data, slope, intercept):
 	''' 
 	data consists of:
-	X is an nd array of N by 2 
-	y is an nd array of N by 1 (taking on values of either 1 or -1)
+	X is an nd array of N by 2.
+	y is an nd array of N by 1 (taking on values of either 1 or -1).
+	Boundary line identified by slope and y intercept.
 	'''
 	x1Plus, x2Plus, x1Minus, x2Minus = [], [] ,[] ,[]
 	for i in range(data.shape[0]):
@@ -21,16 +22,20 @@ def plotDataSet(data, slope, intercept):
 	
 	pylab.plot(x1Plus, x2Plus, 'co', label='+1')
 	pylab.plot(x1Minus, x2Minus, 'mo', label='-1')
-
 	pylab.plot([-1, 1], [y1, y2], 'k-')
-
 	pylab.xlabel('x1')
 	pylab.ylabel('x2')
 	pylab.legend(loc='best')
 	pylab.show()
 
 def buildDataSet(N=100):
-
+	'''
+	Construct a 3 column data set with N rows of floats choisen at random
+	from the interval [-1, 1] as follow:
+	x1=column1 - x2=column2 - y=column3=values of either (-1) or (+1).
+	Also constructs a line separating points(y=-1) from points(y=-1).
+	Returns the data set, line slope, line y intercept.
+	'''
 	x1, x2 = np.ndarray(shape=(N, 1)), np.ndarray(shape=(N, 1))
 	for i in range(N):
 		x1[i, 0] = random.uniform(-1, 1)
@@ -57,9 +62,9 @@ def buildDataSet(N=100):
 			y[i] = -1
 		else:
 			y[i] = 0
-
+	assert(y[y==0].shape[0] == 0)		# make sure there are no points on the line!
 	data = np.column_stack((X, y))
 	return(data, slope, yIntercept)
 
 dataSet, lineSlope, lineYintercept = buildDataSet()
-plotDataSet(dataSet)
+plotDataSet(dataSet, lineSlope, lineYintercept)
