@@ -50,9 +50,10 @@ def generateOutOfSamplePoints(N, slope, intercept):
 	X = np.column_stack((x1, x2))
 	y = np.ndarray(shape=(N, 1), dtype=int)
 	for i in range(X.shape[0]):
-		if float(X[i, 1]) > slope * float(X[i, 0]) + intercept:
+		yEst = slope * float(X[i, 0]) + intercept
+		if float(X[i, 1]) > yEst:
 			y[i] = 1
-		elif float(X[i, 1]) < slope * float(X[i, 0]) + intercept:
+		elif float(X[i, 1]) < yEst:
 			y[i] = -1
 		else:
 			y[i] = 0

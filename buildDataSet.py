@@ -8,20 +8,14 @@ def plotDataSet(data, slope, intercept):
 	y is an nd array of N by 1 (taking on values of either 1 or -1).
 	Boundary line identified by slope and y intercept.
 	'''
-	x1Plus, x2Plus, x1Minus, x2Minus = [], [] ,[] ,[]
-	for i in range(data.shape[0]):
-		if data[i, 2] == 1:
-			x1Plus.append(float(data[i, 0]))
-			x2Plus.append(float(data[i, 1]))
-		elif data[i, 2] == -1:
-			x1Minus.append(float(data[i, 0]))
-			x2Minus.append(float(data[i, 1]))
+	Xplus = data[data[:, 2]==1]
+	Xminus = data[data[:, 2]==-1]
 
 	y1 = slope * -1 + intercept 
 	y2 = slope * 1 + intercept
 	
-	pylab.plot(x1Plus, x2Plus, 'co', label='+1')
-	pylab.plot(x1Minus, x2Minus, 'mo', label='-1')
+	pylab.plot(Xplus[:, 0], Xplus[:, 1], 'co', label='+1')
+	pylab.plot(Xminus[:, 0], Xminus[:, 1], 'mo', label='-1')
 	pylab.plot([-1, 1], [y1, y2], 'k-')
 	pylab.xlabel('x1')
 	pylab.ylabel('x2')
@@ -54,9 +48,10 @@ def buildDataSet(N=100):
 
 	y = np.ndarray(shape=(N, 1), dtype=int)
 	for i in range(X.shape[0]):
-		if float(X[i, 1]) > slope * float(X[i, 0]) + yIntercept:
+		yEst = slope * float(X[i, 0]) + yIntercept
+		if float(X[i, 1]) > yEst:
 			y[i] = 1
-		elif float(X[i, 1]) < slope * float(X[i, 0]) + yIntercept:
+		elif float(X[i, 1]) < yEst:
 			y[i] = -1
 		else:
 			y[i] = 0
