@@ -62,6 +62,7 @@ def buildDataSet(N=100):
 			y[i] = -1
 		else:
 			y[i] = 0
+	
 	assert(y[y==0].shape[0] == 0)		# make sure there are no points on the line!
 	data = np.column_stack((X, y))
 	return(data, slope, yIntercept)
