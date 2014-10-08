@@ -57,15 +57,15 @@ print 'Avergae of nu1s = ' + str(sum(nu1s)/ len(nu1s))
 print 'Avergae of nuRands = ' + str(sum(nuRands)/ len(nuRands))
 print 'Avergae of nuMins = ' + str(sum(nuMins)/ len(nuMins))
 
-pylab.plot(nuMins)
+pylab.hist(nuMins)
 pylab.xlabel('nu 1')
 pylab.show()
 
-pylab.plot(nuMins)
+pylab.hist(nuMins)
 pylab.xlabel('nu Rand')
 pylab.show()
 
-pylab.plot(nuMins)
+pylab.hist(nuMins)
 pylab.xlabel('nu Min')
 pylab.show()
 
