@@ -39,8 +39,6 @@ def buildDataSet(N=100):
 	x1, x2 = np.ndarray(shape=(N, 1)), np.ndarray(shape=(N, 1))
 	for i in range(N):
 		x1[i, 0] = random.uniform(-1, 1)
-
-	for i in range(N):
 		x2[i, 0] = random.uniform(-1, 1)
 
 	X = np.column_stack((x1, x2))
