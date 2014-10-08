@@ -1,3 +1,4 @@
+import random
 import numpy as np 
 from buildDataSet import buildDataSet
 
@@ -36,12 +37,47 @@ def calculateError(weights, dataSet):
 
 	return len(yEst[yEst!=y])/ float(len(yEst))
 
+def generateOutOfSamplePoints(N, slope, intercept):
+	'''
+	Generate N points according to the same g (slope and intercept).
+	Returns data set of N by 3 (including y to calculate out of sample error)
+	'''
+	x1, x2 = np.ndarray(shape=(N, 1)), np.ndarray(shape=(N, 1))
+	for i in range(N):
+		x1[i, 0] = random.uniform(-1, 1)
+
+	for i in range(N):
+		x2[i, 0] = random.uniform(-1, 1)
+
+	X = np.column_stack((x1, x2))
+	y = np.ndarray(shape=(N, 1), dtype=int)
+	for i in range(X.shape[0]):
+		if float(X[i, 1]) > slope * float(X[i, 0]) + intercept:
+			y[i] = 1
+		elif float(X[i, 1]) < slope * float(X[i, 0]) + intercept:
+			y[i] = -1
+		else:
+			y[i] = 0
+
+	assert(y[y==0].shape[0] == 0)		# make sure there are no points on the line!
+	dataSet = np.column_stack((X, y))
+
+	return dataSet
+
 # repeat experiement 1000 times
-Ein = []
+Ein, Eout = [], []
 for i in range(1000):
+	# question5
 	data, slope, intercept = buildDataSet()
 	w = calculateWeights(data)
 	Ein.append(calculateError(w, data))
+	# question6
+	outOFSampleData = generateOutOfSamplePoints(1000, slope, intercept)
+	Eout.append(calculateError(w, outOFSampleData))
 
-print sum(Ein)/ float(len(Ein))
+print 'Ein = ' + str(sum(Ein)/ float(len(Ein)))
+print 'Eout = ' + str(sum(Eout)/ float(len(Eout)))
 
+# output
+# Ein = 0.03762
+# Eout = 0.047629
