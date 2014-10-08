@@ -42,18 +42,17 @@ def generateOutOfSamplePoints(N, slope, intercept):
 	Generate N points according to the same g (slope and intercept).
 	Returns data set of N by 3 (including y to calculate out of sample error)
 	'''
-	x1, x2 = np.ndarray(shape=(N, 1)), np.ndarray(shape=(N, 1))
-	for i in range(N):
-		x1[i, 0] = random.uniform(-1, 1)
-		x2[i, 0] = random.uniform(-1, 1)
+	x1 = np.array([random.uniform(-1, 1) for i in range(N)])
+	x2 = np.array([random.uniform(-1, 1) for i in range(N)])
 
 	X = np.column_stack((x1, x2))
-	y = np.ndarray(shape=(N, 1), dtype=int)
+
+	y = np.empty(shape=(N, 1), dtype=int)
 	for i in range(X.shape[0]):
-		yEst = slope * float(X[i, 0]) + intercept
-		if float(X[i, 1]) > yEst:
+		yEst = slope * X[i, 0] + intercept
+		if X[i, 1] > yEst:
 			y[i] = 1
-		elif float(X[i, 1]) < yEst:
+		elif X[i, 1] < yEst:
 			y[i] = -1
 		else:
 			y[i] = 0

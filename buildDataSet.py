@@ -30,28 +30,25 @@ def buildDataSet(N=100):
 	Also constructs a line separating points(y=-1) from points(y=-1).
 	Returns the data set, line slope, line y intercept.
 	'''
-	x1, x2 = np.ndarray(shape=(N, 1)), np.ndarray(shape=(N, 1))
-	for i in range(N):
-		x1[i, 0] = random.uniform(-1, 1)
-		x2[i, 0] = random.uniform(-1, 1)
+	x1 = np.array([random.uniform(-1, 1) for i in range(N)])
+	x2 = np.array([random.uniform(-1, 1) for i in range(N)])
 
 	X = np.column_stack((x1, x2))
-	pointsX, pointsY = np.ndarray(shape=(2, 1)), np.ndarray(shape=(2, 1))
-	for i in range(2):
-		pointsX[i, 0] = random.uniform(-1, 1)
-		pointsY[i, 0] = random.uniform(-1, 1)
+
+	pointsX = np.array([random.uniform(-1, 1) for i in range(2)])
+	pointsY = np.array([random.uniform(-1, 1) for i in range(2)])
 
 	# y = ax + b
 
-	slope = (float(pointsY[1, 0]) - float(pointsY[0, 0]))/ (float(pointsX[1, 0]) - float(pointsX[0, 0]))
-	yIntercept = float(pointsY[1, 0]) - (slope * float(pointsX[1, 0]))
+	slope = (pointsY[1] - pointsY[0])/ (pointsX[1] - pointsX[0])
+	yIntercept = pointsY[1] - (slope * pointsX[1])
 
-	y = np.ndarray(shape=(N, 1), dtype=int)
+	y = np.empty(shape=(N, 1), dtype=int)
 	for i in range(X.shape[0]):
-		yEst = slope * float(X[i, 0]) + yIntercept
-		if float(X[i, 1]) > yEst:
+		yEst = slope * X[i, 0] + yIntercept
+		if X[i, 1] > yEst:
 			y[i] = 1
-		elif float(X[i, 1]) < yEst:
+		elif X[i, 1] < yEst:
 			y[i] = -1
 		else:
 			y[i] = 0
