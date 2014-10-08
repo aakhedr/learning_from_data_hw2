@@ -11,7 +11,7 @@ def extract(dataSet):
 	y = dataSet[:, 2]
 	
 	interceptTerm = np.ones(shape=(X.shape[0], 1))
-	X = np.column_stack((X, interceptTerm))
+	X = np.column_stack((interceptTerm, X))
 
 	return (X, y)
 
