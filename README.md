@@ -1,4 +1,4 @@
-learning_from_data_hw2
+Caltech thru edX - Learning from Data
 ======================
 
 homework2
