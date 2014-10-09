@@ -36,13 +36,13 @@ data, slope, intercept = buildDataSet(N=1000)
 X = addIntercept(X)
 data = np.column_stack((X, y))
 
-for i in range(1000):
-	# question8
-	data = simulateNoise(data=data, noise=.1)
-	w = calculateWeights(data)
-	Ein.append(calculateError(w, data))
+# for i in range(1000):
+# 	# question8
+# 	data = simulateNoise(data=data, noise=.1)
+# 	w = calculateWeights(data)
+# 	Ein.append(calculateError(w, data))
 
-print sum(Ein)/ float(len(Ein))
+# print sum(Ein)/ float(len(Ein))
 
 # question9
 data = addFeatures(data)
