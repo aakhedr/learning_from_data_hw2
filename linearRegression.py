@@ -2,18 +2,23 @@ import random
 import numpy as np 
 from buildDataSet import buildDataSet
 
-# Helper function 
+# Helper function 1
 def extract(dataSet):
 	'''
-	Extracts X and y from the data set and adds intercept term to X
+	Extracts X and y from the data set and DOES NOT add intercept term to X
 	'''
-	X = dataSet[:, 0:-1]
+	X = dataSet[:, :-1]
 	y = dataSet[:, -1]
 
-	interceptTerm = np.ones(shape=(X.shape[0], 1))
-	X = np.column_stack((interceptTerm, X))
-
 	return (X, y)
+
+# Helper function 2
+def addIntercept(X):
+	'''
+	Add intercept term to feature vector X
+	'''
+	interceptTerm = np.ones(shape=(X.shape[0], 1))
+	return np.column_stack((interceptTerm, X))
 
 def calculateWeights(dataSet):
 	'''
