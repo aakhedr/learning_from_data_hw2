@@ -9,7 +9,7 @@ def extract(dataSet):
 	'''
 	X = dataSet[:, 0:2]
 	y = dataSet[:, 2]
-	
+
 	interceptTerm = np.ones(shape=(X.shape[0], 1))
 	X = np.column_stack((interceptTerm, X))
 
@@ -62,20 +62,20 @@ def generateOutOfSamplePoints(N, slope, intercept):
 
 	return dataSet
 
-# repeat experiement 1000 times
-Ein, Eout = [], []
-for i in range(1000):
-	# question5
-	data, slope, intercept = buildDataSet()
-	w = calculateWeights(data)
-	Ein.append(calculateError(w, data))
-	# question6
-	outOFSampleData = generateOutOfSamplePoints(1000, slope, intercept)
-	Eout.append(calculateError(w, outOFSampleData))
+# # repeat experiement 1000 times
+# Ein, Eout = [], []
+# for i in range(1000):
+# 	# question5
+# 	data, slope, intercept = buildDataSet()
+# 	w = calculateWeights(data)
+# 	Ein.append(calculateError(w, data))
+# 	# question6
+# 	outOFSampleData = generateOutOfSamplePoints(1000, slope, intercept)
+# 	Eout.append(calculateError(w, outOFSampleData))
 
-print 'Ein = ' + str(sum(Ein)/ float(len(Ein)))
-print 'Eout = ' + str(sum(Eout)/ float(len(Eout)))
+# print 'Ein = ' + str(sum(Ein)/ float(len(Ein)))
+# print 'Eout = ' + str(sum(Eout)/ float(len(Eout)))
 
-# output
-# Ein = 0.03762
-# Eout = 0.047629
+# # output
+# # Ein = 0.03762
+# # Eout = 0.047629
