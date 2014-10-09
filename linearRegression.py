@@ -7,8 +7,8 @@ def extract(dataSet):
 	'''
 	Extracts X and y from the data set and adds intercept term to X
 	'''
-	X = dataSet[:, 0:2]
-	y = dataSet[:, 2]
+	X = dataSet[:, 0:-1]
+	y = dataSet[:, -1]
 
 	interceptTerm = np.ones(shape=(X.shape[0], 1))
 	X = np.column_stack((interceptTerm, X))
@@ -18,7 +18,7 @@ def extract(dataSet):
 def calculateWeights(dataSet):
 	'''
 	Takes a data set of X and y in nd array and returns the weights
-	base on the normal equation (w = pinv(X' * X) * X' * y)
+	base on the normal equation (w = (X' * X)^-1 * X' * y)
 	'''
 	X, y = extract(dataSet)
 
