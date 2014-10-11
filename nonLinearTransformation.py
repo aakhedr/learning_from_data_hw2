@@ -9,16 +9,20 @@ def simulateNoise(data, noise=.1):
 	Returns the data set with noise percent noise
 	'''
 	for i in range(int(len(data) * noise)):
+		indices = []
 		index = random.randint(0, len(data) - 1)
-		if data[index, -1] == 1:
-			data[index, -1] = -1
-		else:
-			data[index, -1] = 1
+		if index not in indices:
+			indices.append(index)
+			if data[index, -1] == 1:
+				data[index, -1] = -1
+			else:
+				data[index, -1] = 1
 	return data
 
 def addFeatures(dataSet):
 	'''
 	Add more features as per spec of question9
+	*** Use after the intercept term is added ***
 	'''
 	X, y = extract(data)
 	x3 = X[:, 1] * X[:, 2]
@@ -26,6 +30,13 @@ def addFeatures(dataSet):
 	x5 = X[:, 2]**2
 	dataSet = np.column_stack((X, x3, x4, x5, y))
 	return dataSet
+
+def pickRandomPoints(dataSet):
+	'''
+	For use in problem9
+	Picks and returns a subset of 100 points of the dataSet randomly
+	'''
+	return np.array([random.choice(dataSet) for i in range(100)])
 
 # question8
 data, slope, intercept = buildDataSet(N=1000)
@@ -41,6 +52,7 @@ data = addIntercept(data)
 # question9 
 data = addFeatures(data)
 data = simulateNoise(data=data, noise=.1)
+w = calculateWeights(data)
 
 choices = [[-1, -.05, .08, .13, 1.5, 1.5], 
 [-1, -.05, .08, .13, 1.5, 15], 
@@ -50,16 +62,17 @@ choices = [[-1, -.05, .08, .13, 1.5, 1.5],
 choices = [np.array(choices[i]) for i in range(len(choices))]
 
 Ein_w, Ein_a, Ein_b, Ein_c, Ein_d, Ein_e = [], [], [], [], [], []
-iters = 1000
+iters = 1
 for i in range(iters):
-	w = calculateWeights(data)
+	# 100 random points
+	subset = pickRandomPoints(data)
 
-	Ein_w.append(calculateError(w, data))
-	Ein_a.append(calculateError(choices[0], data))
-	Ein_b.append(calculateError(choices[1], data))
-	Ein_c.append(calculateError(choices[2], data))
-	Ein_d.append(calculateError(choices[3], data))
-	Ein_e.append(calculateError(choices[4], data))
+	Ein_w.append(calculateError(w, subset))
+	Ein_a.append(calculateError(choices[0], subset))
+	Ein_b.append(calculateError(choices[1], subset))
+	Ein_c.append(calculateError(choices[2], subset))
+	Ein_d.append(calculateError(choices[3], subset))
+	Ein_e.append(calculateError(choices[4], subset))
 
 print 'Ein_w', sum(Ein_w)/ float(iters)
 print
